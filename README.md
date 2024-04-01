@@ -26,11 +26,10 @@ I think the code can run under other versions of the environment, but I haven't 
 
 
 ## Dataset preparation
-Please refer to the following links to download three standard class incremental learning benchmark datasets.
-
+ * Create a folder `data/`
  * **CIFAR 100**: should automatically be downloaded
- * **ImageNet-R**: retrieve from: https://github.com/hendrycks/imagenet-r
- * **DomainNet**: retrieve from: http://ai.bu.edu/M3SDA/
+ * **ImageNet-R**: please follow LAE[https://github.com/gqk/LAE] to prepare the dataset and place it into `data/` folder
+ * **DomainNet**: download from http://ai.bu.edu/M3SDA/, place it into `data/` folder 
 
 ## Training
 All commands should be run under the project root directory. **The scripts are set up for 4 GPUs** but can be modified for your hardware.

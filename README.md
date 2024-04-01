@@ -32,7 +32,7 @@ I think the code can run under other versions of the environment, but I haven't 
  * **DomainNet**: download from http://ai.bu.edu/M3SDA/, place it into `data/` folder 
 
 ## Training
-All commands should be run under the project root directory. **The scripts are set up for 4 GPUs** but can be modified for your hardware.
+All commands should be run under the project root directory. Currently, the code is run for 1 A6000 GPU (48G).
 
 ### CIFAR100:
 #### For InfLoRA

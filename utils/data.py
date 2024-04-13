@@ -6,6 +6,8 @@ from utils.datautils.core50data import CORE50
 import ipdb
 import yaml
 from PIL import Image
+from shutil import move, rmtree
+import torch
 
 class iData(object):
     train_trsf = []
@@ -184,12 +186,63 @@ class iIMAGENET_R(iData):
 
     def download_data(self):
         # load splits from config file
+        if not os.path.exists(os.path.join(self.args['data_path'], 'train')) and not os.path.exists(os.path.join(self.args['data_path'], 'train')):
+            self.dataset = datasets.ImageFolder(self.args['data_path'], transform=None)
+            
+            train_size = int(0.8 * len(self.dataset))
+            val_size = len(self.dataset) - train_size
+            
+            train, val = torch.utils.data.random_split(self.dataset, [train_size, val_size])
+            train_idx, val_idx = train.indices, val.indices
+    
+            self.train_file_list = [self.dataset.imgs[i][0] for i in train_idx]
+            self.test_file_list = [self.dataset.imgs[i][0] for i in val_idx]
+
+            self.split()
+
         train_data_config = datasets.ImageFolder(os.path.join(self.args['data_path'], 'train')).samples
         test_data_config = datasets.ImageFolder(os.path.join(self.args['data_path'], 'test')).samples
         self.train_data = np.array([config[0] for config in train_data_config])
         self.train_targets = np.array([config[1] for config in train_data_config])
         self.test_data = np.array([config[0] for config in test_data_config])
         self.test_targets = np.array([config[1] for config in test_data_config])
+
+
+    def split(self):
+        train_folder = os.path.join(self.args['data_path'], 'train')
+        test_folder = os.path.join(self.args['data_path'], 'test')
+
+        if os.path.exists(train_folder):
+            rmtree(train_folder)
+        if os.path.exists(test_folder):
+            rmtree(test_folder)
+        os.mkdir(train_folder)
+        os.mkdir(test_folder)
+
+        for c in self.dataset.classes:
+            if not os.path.exists(os.path.join(train_folder, c)):
+                os.mkdir(os.path.join(os.path.join(train_folder, c)))
+            if not os.path.exists(os.path.join(test_folder, c)):
+                os.mkdir(os.path.join(os.path.join(test_folder, c)))
+        
+        for path in self.train_file_list:
+            if '\\' in path:
+                path = path.replace('\\', '/')
+            src = path
+            dst = os.path.join(train_folder, '/'.join(path.split('/')[-2:]))
+            move(src, dst)
+
+        for path in self.test_file_list:
+            if '\\' in path:
+                path = path.replace('\\', '/')
+            src = path
+            dst = os.path.join(test_folder, '/'.join(path.split('/')[-2:]))
+            move(src, dst)
+        
+        for c in self.dataset.classes:
+            path = os.path.join(self.args['data_path'], c)
+            rmtree(path)
+
 
 class iIMAGENET_A(iData):
     use_path = True

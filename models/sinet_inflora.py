@@ -119,8 +119,8 @@ class SiNet(nn.Module):
             'prompt_loss': prompt_loss
         }
 
-    def interface(self, image):
-        image_features, _ = self.image_encoder(image, task_id=self.numtask-1)
+    def interface(self, image, task_id = None):
+        image_features, _ = self.image_encoder(image, task_id=self.numtask-1 if task_id is None else task_id)
 
         image_features = image_features[:,0,:]
         image_features = image_features.view(image_features.size(0),-1)

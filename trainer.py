@@ -28,7 +28,7 @@ def train(args):
 
 
 def _train(args):
-    if args['model_name'] in ['InfLoRA', 'InfLoRAb5', 'InfLoRA_CA', 'InfLoRA_CA1']:
+    if args['model_name'] in ['InfLoRA', 'InfLoRA_domain', 'InfLoRAb5_domain', 'InfLoRAb5', 'InfLoRA_CA', 'InfLoRA_CA1']:
         logdir = 'logs/{}/{}_{}_{}/{}/{}/{}/{}_{}-{}'.format(args['dataset'], args['init_cls'], args['increment'], args['net_type'], args['model_name'], args['optim'], args['rank'], args['lamb'], args['lame'], args['lrate'])
     else:
         logdir = 'logs/{}/{}_{}_{}/{}/{}'.format(args['dataset'], args['init_cls'], args['increment'], args['net_type'], args['model_name'], args['optim'])
@@ -79,7 +79,7 @@ def _train(args):
 
         # if task >= 3: break
 
-        # torch.save(model, os.path.join(logfilename, "task_{}.pth".format(int(task))))
+        torch.save(model._network.state_dict(), os.path.join(logfilename, "task_{}.pth".format(int(task))))
 
 def _set_device(args):
     device_type = args['device']

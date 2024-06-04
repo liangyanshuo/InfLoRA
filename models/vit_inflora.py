@@ -177,6 +177,7 @@ class Attention_LoRA(nn.Module):
         super().__init__()
         self.num_heads = num_heads
         head_dim = dim // num_heads
+        self.dim = dim
         # NOTE scale factor was wrong in my original version, can set manually to be compat with prev weights
         self.scale = qk_scale or head_dim ** -0.5
         self.qkv = nn.Linear(dim, dim * 3, bias=qkv_bias)
@@ -204,6 +205,17 @@ class Attention_LoRA(nn.Module):
             nn.init.kaiming_uniform_(self.lora_A_v[t].weight, a=math.sqrt(5))
             nn.init.zeros_(self.lora_B_k[t].weight)
             nn.init.zeros_(self.lora_B_v[t].weight)
+
+    def init_param_ada(self, t, r):
+        self.lora_A_k[t] = nn.Linear(self.dim, r, bias=False).to(self.qkv.weight.device)
+        self.lora_B_k[t] = nn.Linear(r, self.dim, bias=False).to(self.qkv.weight.device)
+        self.lora_A_v[t] = nn.Linear(self.dim, r, bias=False).to(self.qkv.weight.device)
+        self.lora_B_v[t] = nn.Linear(r, self.dim, bias=False).to(self.qkv.weight.device)
+
+        nn.init.kaiming_uniform_(self.lora_A_k[t].weight, a=math.sqrt(5))
+        nn.init.kaiming_uniform_(self.lora_A_v[t].weight, a=math.sqrt(5))
+        nn.init.zeros_(self.lora_B_k[t].weight)
+        nn.init.zeros_(self.lora_B_v[t].weight)
 
     def save_attn_gradients(self, attn_gradients):
         self.attn_gradients = attn_gradients

@@ -37,66 +37,66 @@ All commands should be run under the project root directory. Currently, the code
 ### CIFAR100:
 #### For InfLoRA
 ```
-python main.py --device "1" --config configs/cifar100_inflora.json 
+python main.py --device your_device --config configs/cifar100_inflora.json 
 ```
 
 #### For InfLoRA-b5
 ```
-python main.py --device "1" --config configs/cifar100_inflorab5.json 
+python main.py --device your_device --config configs/cifar100_inflorab5.json 
 ```
 
 #### For InfLoRA+CA
 ```
-python main.py --device "1" --config configs/cifar100_infloraca.json 
+python main.py --device your_device --config configs/cifar100_infloraca.json 
 ```
 
 ### ImageNet-R (10 Tasks):
 #### For InfLoRA
 ```
-python main.py --device "1" --config configs/mimg10_inflora.json 
+python main.py --device your_device --config configs/mimg10_inflora.json 
 ```
 
 #### For InfLoRA-b5
 ```
-python main.py --device "1" --config configs/mimg10_inflorab5.json 
+python main.py --device your_device --config configs/mimg10_inflorab5.json 
 ```
 
 #### For InfLoRA+CA
 ```
-python main.py --device "1" --config configs/mimg10_infloraca.json 
+python main.py --device your_device --config configs/mimg10_infloraca.json 
 ```
 
 ### ImageNet-R (20 Tasks):
 #### For InfLoRA
 ```
-python main.py --device "1" --config configs/mimg20_inflora.json 
+python main.py --device your_device --config configs/mimg20_inflora.json 
 ```
 
 #### For InfLoRA-b5
 ```
-python main.py --device "1" --config configs/mimg20_inflorab5.json 
+python main.py --device your_device --config configs/mimg20_inflorab5.json 
 ```
 
 ### ImageNet-R (5 Tasks):
 #### For InfLoRA
 ```
-python main.py --device "1" --config configs/mimg5_inflora.json 
+python main.py --device your_device --config configs/mimg5_inflora.json 
 ```
 
 #### For InfLoRA-b5
 ```
-python main.py --device "1" --config configs/mimg5_inflorab5.json 
+python main.py --device your_device --config configs/mimg5_inflorab5.json 
 ```
 
 ### DomainNet:
 #### For InfLoRA
 ```
-python main.py --device "1" --config configs/domainnet_inflora.json 
+python main.py --device your_device --config configs/domainnet_inflora.json 
 ```
 
 #### For InfLoRA-b5
 ```
-python main.py --device "1" --config configs/domainnet_inflorab5.json 
+python main.py --device your_device --config configs/domainnet_inflorab5.json 
 ```
 
 

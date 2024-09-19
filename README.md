@@ -32,7 +32,7 @@ I think the code can run under other versions of the environment, but I haven't 
  * **DomainNet**: download from http://ai.bu.edu/M3SDA/, place it into `data/` folder 
 
 ## Training
-All commands should be run under the project root directory. Currently, the code has been validated on 1 A6000 GPU (48G) or 4 2080ti GPU (11G).
+All commands should be run under the project root directory. Currently, the code has been validated on 1 A6000 GPU (48G) and 4 2080ti GPUs (11G).
 
 ### CIFAR100:
 #### For InfLoRA

@@ -79,12 +79,12 @@ class InfLoRAb5_domain(BaseLearner):
         self.test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False,
                                       num_workers=self.num_workers)
 
-        if len(self._multiple_gpus) > 1:
-            self._network = nn.DataParallel(self._network, self._multiple_gpus)
+        # if len(self._multiple_gpus) > 1:
+        #     self._network = nn.DataParallel(self._network, self._multiple_gpus)
         self._train(self.train_loader, self.test_loader)
         self.clustering(self.train_loader)
-        if len(self._multiple_gpus) > 1:
-            self._network = self._network.module
+        # if len(self._multiple_gpus) > 1:
+        #     self._network = self._network.module
 
         # CA
         # self._network.fc.backup()
@@ -164,6 +164,9 @@ class InfLoRAb5_domain(BaseLearner):
                         kk += 1
 
         print(f"Parameters to be updated: {enabled}")
+        if len(self._multiple_gpus) > 1:
+            self._network = nn.DataParallel(self._network, self._multiple_gpus)
+
         base_params = self._network.image_encoder.parameters()
         base_fc_params = [p for p in self._network.classifier_pool.parameters() if p.requires_grad==True]
         base_params = {'params': base_params, 'lr': self.lrate, 'weight_decay': self.weight_decay}
@@ -185,6 +188,8 @@ class InfLoRAb5_domain(BaseLearner):
             raise NotImplementedError
         self.run_epoch = self.epochs
         self.train_function(train_loader, test_loader, optimizer, scheduler)
+        if len(self._multiple_gpus) > 1:
+            self._network = self._network.module
 
         with torch.no_grad():
             for i, (_, inputs, targets) in enumerate(train_loader):

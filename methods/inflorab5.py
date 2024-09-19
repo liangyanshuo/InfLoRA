@@ -78,12 +78,12 @@ class InfLoRAb5(BaseLearner):
         self.test_loader = DataLoader(test_dataset, batch_size=self.batch_size, shuffle=False,
                                       num_workers=self.num_workers)
 
-        if len(self._multiple_gpus) > 1:
-            self._network = nn.DataParallel(self._network, self._multiple_gpus)
+        # if len(self._multiple_gpus) > 1:
+        #     self._network = nn.DataParallel(self._network, self._multiple_gpus)
         self._train(self.train_loader, self.test_loader)
         self.clustering(self.train_loader)
-        if len(self._multiple_gpus) > 1:
-            self._network = self._network.module
+        # if len(self._multiple_gpus) > 1:
+        #     self._network = self._network.module
 
     def _train(self, train_loader, test_loader):
         self._network.to(self._device)
@@ -153,6 +153,8 @@ class InfLoRAb5(BaseLearner):
                         kk += 1
 
         print(f"Parameters to be updated: {enabled}")
+        if len(self._multiple_gpus) > 1:
+            self._network = nn.DataParallel(self._network, self._multiple_gpus)
         if self._cur_task==0:
             if self.optim == 'sgd':
                 optimizer = optim.SGD(self._network.parameters(), momentum=0.9,lr=self.init_lr)
@@ -175,6 +177,8 @@ class InfLoRAb5(BaseLearner):
                 raise Exception
             self.run_epoch = self.epochs
             self.train_function(train_loader, test_loader, optimizer, scheduler)
+        if len(self._multiple_gpus) > 1:
+            self._network = self._network.module
 
         with torch.no_grad():
             for i, (_, inputs, targets) in enumerate(train_loader):

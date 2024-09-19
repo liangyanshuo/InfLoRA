@@ -99,6 +99,18 @@ python main.py --device your_device --config configs/domainnet_inflora.json
 python main.py --device your_device --config configs/domainnet_inflorab5.json 
 ```
 
+## Citation
+
+```bibtex
+@inproceedings{liang2024inflora,
+  title={InfLoRA: Interference-Free Low-Rank Adaptation for Continual Learning},
+  author={Liang, Yan-Shuo and Li, Wu-Jun},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={23638--23647},
+  year={2024}
+}
+```
+
 
 ## Acknoledgements
 We thank the following repos providing helpful components/functions in our work.

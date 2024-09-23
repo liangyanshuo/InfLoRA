@@ -167,8 +167,8 @@ class InfLoRA_domain(BaseLearner):
         if len(self._multiple_gpus) > 1:
             self._network = nn.DataParallel(self._network, self._multiple_gpus)
 
-        base_params = self._network.image_encoder.parameters()
-        base_fc_params = [p for p in self._network.classifier_pool.parameters() if p.requires_grad==True]
+        base_params = self._network.module.image_encoder.parameters()
+        base_fc_params = [p for p in self._network.module.classifier_pool.parameters() if p.requires_grad==True]
         base_params = {'params': base_params, 'lr': self.lrate, 'weight_decay': self.weight_decay}
         base_fc_params = {'params': base_fc_params, 'lr': self.fc_lrate, 'weight_decay': self.weight_decay}
         network_params = [base_params, base_fc_params]

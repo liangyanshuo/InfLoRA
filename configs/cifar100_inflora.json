@@ -13,7 +13,7 @@
     "embd_dim" : 768,
     "num_heads": 12,
     "total_sessions" : 10,
-    "seed": [0],
+    "seed": [0,1,2,3,4],
     "EPSILON" : 1e-8,
     "init_epoch" : 20,
     "optim" : "adam",

@@ -22,6 +22,10 @@ This code is implemented in PyTorch, and we perform the experiments under the fo
 - torchvision = 0.11.1
 - timm = 0.6.7
 
+## Install
+```
+conda env create -f environment.yaml
+```
 I think the code can run under other versions of the environment, but I haven't tried.
 
 

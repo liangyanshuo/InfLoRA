@@ -26,7 +26,7 @@
     "batch_size" : 128,
     "weight_decay" : 0.0,
     "rank": 10,
-    "lamb": 0.98,
+    "lamb": 0.99,
     "lame": 1.0,
     "num_workers" : 16
 }
